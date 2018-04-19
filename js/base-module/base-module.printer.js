@@ -6,14 +6,14 @@ BaseModule.Printer = (function () {
     var sectionTitle = document.createElement('h3');
     var content = document.createTextNode(title);
     sectionTitle.appendChild(content);
-    document.body.insertBefore(sectionTitle, containerDiv);
+    containerDiv.appendChild(sectionTitle);
   };
   
   self.printLine = function(string) {
     var line = document.createElement('p');
     var content = document.createTextNode(string);
     line.appendChild(content);
-    document.body.insertBefore(line, containerDiv);
+    containerDiv.appendChild(line);
   };
   
   self.printList = function(object) {
@@ -29,12 +29,12 @@ BaseModule.Printer = (function () {
       ulist.appendChild(listItem);
     };
     
-    document.body.insertBefore(ulist, containerDiv);
+    containerDiv.appendChild(ulist);
   };
   
   self.sectionSeparator = function() {
     var separator = document.createElement('hr');
-    document.body.insertBefore(separator, containerDiv);
+    containerDiv.appendChild(separator);
   };
   
   return self;

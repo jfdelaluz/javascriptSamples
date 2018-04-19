@@ -117,3 +117,65 @@ var try_it = function () {
 try_it();
 BaseModule.Printer.sectionSeparator();
 
+// -------------------------------------------------------------------------------------------------------------------//
+// Augmenting Types Sample
+BaseModule.Printer.printSectionTitle('Augmenting Types Sample');
+BaseModule.Printer.printLine('Get integer from number using parseInt(-10/3): ' + parseInt(-10/3));
+Function.prototype.method = function (name, func) {
+  if (this.prototype[name] !== true) {
+    this.prototype[name] = func;
+    return this;
+  }
+};
+Number.method('integer', function () {
+  return Math[this < 0 ? 'ceil' : 'floor'](this);
+});
+BaseModule.Printer.printLine('Augmenting "Number" type with "integer" method');
+BaseModule.Printer.printLine(
+  'Get integer from number with custom integer method (-10/3).integer(): ' + (-10/3).integer()
+);
+BaseModule.Printer.sectionSeparator();
+
+// -------------------------------------------------------------------------------------------------------------------//
+// Recursion Sample
+BaseModule.Printer.printSectionTitle('Recursion Sample');
+var elements;
+var walk_the_DOM = function walk(node, func) {
+  func(node);
+  node = node.firstChild;
+  while (node) {
+    walk(node, func);
+    node = node.nextSibling;
+  }
+};
+
+var getElementsByAttribute = function (att, value) {
+  var results = [];
+  walk_the_DOM(document.body, function (node) {
+    var actual = node.nodeType === 1 && node.getAttribute(att);
+    if (typeof actual === 'string' && (actual === value || typeof value !== 'string')) {
+      results.push(node);
+    }
+  });
+  return results;
+};
+
+elements = getElementsByAttribute('class', 'menuElement');
+BaseModule.Printer.printLine('Walking the DOM, searching for anchors with "menuElement" class');
+for (var i = 0; i < elements.length; i++) {
+  BaseModule.Printer.printLine(
+    'Href Attribute Value: ' + elements[i].getAttribute('href') +
+    ', Class Attribute Value: ' + elements[i].getAttribute('class')
+  );
+}
+
+var factorial = function factorial(i, a) {
+  a = a || 1;
+  if (i < 2) {
+    return a;
+  }
+  return factorial(i - 1, a * i);
+};
+BaseModule.Printer.printLine('Factorial result with 4: ' + factorial(4));
+BaseModule.Printer.sectionSeparator();
+
