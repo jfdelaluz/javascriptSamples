@@ -1,4 +1,4 @@
-Exceptions.NumberTypeError = (function() {
+Exceptions.NumberTypeException = (function() {
   var self = {};
   
   self.get = function () {

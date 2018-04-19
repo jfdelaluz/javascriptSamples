@@ -101,7 +101,7 @@ BaseModule.Printer.sectionSeparator();
 BaseModule.Printer.printSectionTitle('Exceptions Sample');
 var addValidated = function (a, b) {
   if (typeof a !== 'number' || typeof b !== 'number') {
-    throw Exceptions.NumberTypeError.get();
+    throw Exceptions.NumberTypeException.get();
   }
   return a + b;
 };
