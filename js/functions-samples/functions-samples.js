@@ -59,7 +59,8 @@ Quo.prototype.get_status = function () {
   return this.status;
 };
 var myQuo = new Quo('confused');
-BaseModule.Printer.printLine('myQuo object status: ' + myQuo.get_status());
+BaseModule.Printer.printLine('myQuo object status using "get_status" function: ' + myQuo.get_status());
+BaseModule.Printer.printLine('myQuo "status" variable accessed directly(myQuo.status): ' + myQuo.status);
 BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
@@ -177,5 +178,125 @@ var factorial = function factorial(i, a) {
   return factorial(i - 1, a * i);
 };
 BaseModule.Printer.printLine('Factorial result with 4: ' + factorial(4));
+BaseModule.Printer.sectionSeparator();
+
+// -------------------------------------------------------------------------------------------------------------------//
+// Scope Sample
+BaseModule.Printer.printSectionTitle('Scope Sample');
+var foo = function () {
+  var a = 3, b = 5;
+  BaseModule.Printer.printLine('Function "foo", defined variables: a = ' + a + ', b = ' + b);
+  
+  var bar = function () {
+    var b = 7, c = 11;
+    BaseModule.Printer.printLine(
+      'Function "bar" inside "foo", a = ' + a + ' (from "foo"), defined variables: b = ' + b + ', c = ' + c
+    );
+    a += b + c;
+    BaseModule.Printer.printLine(
+      'New values after "a += b + c" expression inside "bar": a = ' + a + ', b = ' + b + ', c = ' +c
+    );
+  };
+  
+  bar();
+  
+  BaseModule.Printer.printLine(
+    'Values outside "bar" function: a = ' + a + ', b = ' + b + ', c = ' + typeof c + ', it is defined inside "bar"'
+  );
+};
+foo();
+BaseModule.Printer.sectionSeparator();
+
+// -------------------------------------------------------------------------------------------------------------------//
+// Closure Sample
+BaseModule.Printer.printSectionTitle('Closure Sample');
+var myClosureObject = function () {
+  var value = 0;
+  
+  return {
+    increment: function (inc) {
+      value += typeof inc === 'number' ? inc : 0;
+    },
+    getValue: function () {
+      return value;
+    }
+  };
+}();
+BaseModule.Printer.printLine(
+  'Accesing "value" defined in myClosureObject using myClosureObject.value: ' + myClosureObject.value
+);
+BaseModule.Printer.printLine(
+  'Accesing "value" using myClosureObject.getValue function: ' + myClosureObject.getValue()
+);
+myClosureObject.increment(2);
+BaseModule.Printer.printLine('New "value" after using myClosure.increment function: ' + myClosureObject.getValue());
+
+var quoClosure = function (status) {
+  return {
+    get_status: function () {
+      return status;
+    }
+  };
+};
+var myQuoClosure = quoClosure('amazed');
+BaseModule.Printer.printLine('Object myQuoClosure "get_status" function result: ' + myQuoClosure.get_status());
+BaseModule.Printer.printLine('Object myQuoClosure access to "status" variable result: ' + myQuoClosure.status);
+
+var attributes = {
+  'id': 'color-changer'
+};
+BaseModule.Printer.printLine('Element created to test closures', attributes);
+var fade = function (node) {
+  var level = 1;
+  var step = function () {
+    var hex = level.toString(16);
+    node.style.backgroundColor = '#FFFF' + hex + hex;
+    if (level < 15) {
+      level += 1;
+      setTimeout(step, 100);
+    }
+  };
+  setTimeout(step, 100);
+};
+fade(document.getElementById('color-changer'));
+
+BaseModule.Printer.printLine('Test Nodes');
+for (var i = 1; i <= 10; i++) {
+  var nodeAttributes = {
+    'class': i < 6 ? 'testNodeWrong' : 'testNodeCorrect'
+  };
+  BaseModule.Printer.printLine(
+    i < 6 ? 'Test Wrong Node ' + i : 'Test Correct Node ' + (i - 5),
+    nodeAttributes
+  );
+}
+
+var add_the_handlers_wrong = function (nodes) {
+  var i;
+  for (i = 0; i < nodes.length; i ++) {
+    nodes[i].onclick = function (e) {
+      alert('"i" variable is being incremented, so all nodes display the last value of "i": ' + i);
+    }
+  }
+};
+add_the_handlers_wrong(getElementsByAttribute('class', 'testNodeWrong'));
+
+var add_the_handlers_correct = function (nodes) {
+  var i;
+  for (i = 0; i < nodes.length; i ++) {
+    nodes[i].onclick = function (i) {
+      return function (e) {
+        alert('A function is declared and invoked immediately, bound to the current value of "i": ' + i);
+      };
+    }(i);
+  }
+};
+add_the_handlers_correct(getElementsByAttribute('class', 'testNodeCorrect'));
+BaseModule.Printer.sectionSeparator();
+
+// -------------------------------------------------------------------------------------------------------------------//
+// Callbacks Sample
+BaseModule.Printer.printSectionTitle('Callbacks Sample');
+
 BaseModule.Printer.sectionSeparator();
 
