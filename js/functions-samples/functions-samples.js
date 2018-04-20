@@ -1,17 +1,19 @@
 // -------------------------------------------------------------------------------------------------------------------//
 // Function literal
+var fileAndLineIdentifier = new Error();
 var add = function (a, b) {
   return a + b;
 };
 
-BaseModule.Printer.printSectionTitle('Function Literal Sample');
+BaseModule.Printer.printSectionTitle('Function Literal Sample', fileAndLineIdentifier);
 BaseModule.Printer.printLine('Function created: var add = ' + add + ';');
 BaseModule.Printer.printLine('Invoke result (add(1, 2)): ' + add(1, 2));
 BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Method Invocation Pattern
-BaseModule.Printer.printSectionTitle('Method Invocation Pattern');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Method Invocation Pattern', fileAndLineIdentifier);
 var myObject = {
   value: 0,
   getValue: function () {
@@ -34,7 +36,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Function Invocation Pattern
-BaseModule.Printer.printSectionTitle('Method Invocation Pattern');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Method Invocation Pattern', fileAndLineIdentifier);
 myObject.double = function () {
   var that = this;
   
@@ -51,7 +54,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Constructor Invocation Pattern
-BaseModule.Printer.printSectionTitle('Constructor Invocation Pattern');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Constructor Invocation Pattern', fileAndLineIdentifier);
 var Quo = function (string) {
   this.status = string;
 };
@@ -65,7 +69,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Apply Invocation Pattern
-BaseModule.Printer.printSectionTitle('Apply Invocation Pattern');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Apply Invocation Pattern', fileAndLineIdentifier);
 var array = [3, 4];
 var sum = add.apply(null, array);
 BaseModule.Printer.printLine('Result using "apply" with add method: ' + sum);
@@ -81,7 +86,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Arguments Sample
-BaseModule.Printer.printSectionTitle('Arguments Sample');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Arguments Sample', fileAndLineIdentifier);
 var sum = function () {
   var i, sum = 0;
   for (i = 0; i < arguments.length; i++) {
@@ -99,7 +105,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Exceptions Sample
-BaseModule.Printer.printSectionTitle('Exceptions Sample');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Exceptions Sample', fileAndLineIdentifier);
 var addValidated = function (a, b) {
   if (typeof a !== 'number' || typeof b !== 'number') {
     throw Exceptions.NumberTypeException.get();
@@ -120,7 +127,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Augmenting Types Sample
-BaseModule.Printer.printSectionTitle('Augmenting Types Sample');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Augmenting Types Sample', fileAndLineIdentifier);
 BaseModule.Printer.printLine('Get integer from number using parseInt(-10/3): ' + parseInt(-10/3));
 Function.prototype.method = function (name, func) {
   if (this.prototype[name] !== true) {
@@ -139,7 +147,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Recursion Sample
-BaseModule.Printer.printSectionTitle('Recursion Sample');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Recursion Sample', fileAndLineIdentifier);
 var elements;
 var walk_the_DOM = function walk(node, func) {
   func(node);
@@ -182,7 +191,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Scope Sample
-BaseModule.Printer.printSectionTitle('Scope Sample');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Scope Sample', fileAndLineIdentifier);
 var foo = function () {
   var a = 3, b = 5;
   BaseModule.Printer.printLine('Function "foo", defined variables: a = ' + a + ', b = ' + b);
@@ -209,7 +219,8 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Closure Sample
-BaseModule.Printer.printSectionTitle('Closure Sample');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Closure Sample', fileAndLineIdentifier);
 var myClosureObject = function () {
   var value = 0;
   
@@ -296,7 +307,36 @@ BaseModule.Printer.sectionSeparator();
 
 // -------------------------------------------------------------------------------------------------------------------//
 // Callbacks Sample
-BaseModule.Printer.printSectionTitle('Callbacks Sample');
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Callbacks Sample', fileAndLineIdentifier);
 
+BaseModule.Printer.sectionSeparator();
+
+// -------------------------------------------------------------------------------------------------------------------//
+// Module Sample
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Module Sample', fileAndLineIdentifier);
+String.method('deentityify', function() {
+  var entity = {
+    quot: '"',
+    lt: '<',
+    gt: '>'
+  };
+  
+  return function() {
+    return this.replace(
+      /&([^&;]+);/g,
+      function  (a, b) {
+        var r = entity[b];
+        return typeof r === 'string' ? r : a;
+      }
+    );
+  };
+}());
+
+var testStringForReplacement = '&lt;&quot;&gt;';
+BaseModule.Printer.printLine('New method "deentityify" on String');
+BaseModule.Printer.printLine('String to be processed: "' + testStringForReplacement + '"');
+BaseModule.Printer.printLine('Result:' + testStringForReplacement.deentityify());
 BaseModule.Printer.sectionSeparator();
 

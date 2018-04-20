@@ -2,12 +2,13 @@ BaseModule.Printer = (function () {
   var self = {},
       containerDiv = document.getElementById('container');
   
-  self.printSectionTitle = function(title, attributes) {
+  self.printSectionTitle = function(title, fileAndLineIdentifier, attributes) {
     var sectionTitle = document.createElement('h3');
     var content = document.createTextNode(title);
     setAttributesToElement(sectionTitle, attributes);
     sectionTitle.appendChild(content);
     containerDiv.appendChild(sectionTitle);
+    addFilenameReport(fileAndLineIdentifier);
   };
   
   self.printLine = function(string, attributes) {
@@ -48,6 +49,20 @@ BaseModule.Printer = (function () {
     }
     
     return element;
+  }
+  
+  function addFilenameReport(fileAndLineIdentifier) {
+    var filenameReport = document.createElement('h5');
+    var content = document.createTextNode(
+      'Filename: ' + fileAndLineIdentifier.fileName + ', Line Number: ' + getFunctionLine(fileAndLineIdentifier)
+    );
+    filenameReport.appendChild(content);
+    containerDiv.appendChild(filenameReport);
+  }
+  
+  function getFunctionLine(fileAndLineIdentifier) {
+    // fileAndLineIdentifier should be created in the first line after the function starts
+    return fileAndLineIdentifier.lineNumber -1;
   }
   
   return self;

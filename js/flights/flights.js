@@ -29,7 +29,8 @@ var Flights = (function() {
   }
   
   function flightProperties() {
-    BaseModule.Printer.printSectionTitle('Flight Properties');
+    var fileAndLineIdentifier = new Error();
+    BaseModule.Printer.printSectionTitle('Flight Properties', fileAndLineIdentifier);
     BaseModule.Printer.printLine('Airline: ' + singleFlight.airline);
     BaseModule.Printer.printLine('Number: ' + singleFlight.number);
     BaseModule.Printer.printLine('Departure IATA: ' + singleFlight.departure.IATA);
@@ -42,7 +43,8 @@ var Flights = (function() {
   }
   
   function displayDefaultValuesForUndefinedProperties() {
-    BaseModule.Printer.printSectionTitle('Display Default Values For Undefined Properties');
+    var fileAndLineIdentifier = new Error();
+    BaseModule.Printer.printSectionTitle('Display Default Values For Undefined Properties', fileAndLineIdentifier);
     BaseModule.Printer.printLine('Status: ' + (singleFlight.status || 'Default Status'));
     singleFlight.status = 'overdue';
     BaseModule.Printer.printLine('Status Defined: ' + (singleFlight.status || 'Default Status'));
@@ -50,7 +52,8 @@ var Flights = (function() {
   }
   
   function validationForPropertiesOfUndefined() {
-    BaseModule.Printer.printSectionTitle('Validation For Properties Of Undefined');
+    var fileAndLineIdentifier = new Error();
+    BaseModule.Printer.printSectionTitle('Validation For Properties Of Undefined', fileAndLineIdentifier);
     BaseModule.Printer.printLine('Equipment Undefined: ' + singleFlight.equipment);
     BaseModule.Printer.printLine(
       'Equipment Model Undefined (No Type Error): ' + (singleFlight.equipment && singleFlight.equipment.model)
@@ -67,7 +70,8 @@ var Flights = (function() {
   }
   
   function getPropertiesTypes() {
-    BaseModule.Printer.printSectionTitle('Get Properties Types Using "typeof"');
+    var fileAndLineIdentifier = new Error();
+    BaseModule.Printer.printSectionTitle('Get Properties Types Using "typeof"', fileAndLineIdentifier);
     BaseModule.Printer.printLine('Flight number type: ' + typeof singleFlight.number);
     BaseModule.Printer.printLine('Flight status type: ' + typeof singleFlight.status);
     BaseModule.Printer.printLine('Flight arrival type: ' + typeof singleFlight.arrival);
@@ -79,8 +83,10 @@ var Flights = (function() {
   }
   
   function checkIfObjectHasProperty() {
+    var fileAndLineIdentifier = new Error();
     BaseModule.Printer.printSectionTitle(
-      'Check If Object Has Property Before Get Property\'s type Using "hasOwnProperty"'
+      'Check If Object Has Property Before Get Property\'s type Using "hasOwnProperty"',
+      fileAndLineIdentifier
     );
     BaseModule.Printer.printLine('Flight has number property: ' + singleFlight.hasOwnProperty('number'));
     BaseModule.Printer.printLine('Flight has arrival property: ' + singleFlight.hasOwnProperty('arrival'));
