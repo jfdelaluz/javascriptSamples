@@ -338,5 +338,124 @@ var testStringForReplacement = '&lt;&quot;&gt;';
 BaseModule.Printer.printLine('New method "deentityify" on String');
 BaseModule.Printer.printLine('String to be processed: "' + testStringForReplacement + '"');
 BaseModule.Printer.printLine('Result:' + testStringForReplacement.deentityify());
+BaseModule.Printer.printLine(
+  'There is no access to the "entity" variable without using the "deentityify" method: String.entity = ' +
+  String.entity
+);
+
+BaseModule.Printer.printLine('Serial maker object');
+var serial_maker = function () {
+  var prefix = '';
+  var seq = 0;
+  return {
+    set_prefix: function (p) {
+      prefix = String(p);
+    },
+    set_seq: function (s) {
+      seq = s;
+    },
+    gensym: function () {
+      var result = prefix + seq;
+      seq += 1;
+      return result;
+    }
+  };
+};
+BaseModule.Printer.printLine('Create object seqer from serial_maker: var seqer = serial_maker();');
+var seqer = serial_maker();
+BaseModule.Printer.printLine('Set object prefix: seqer.set_prefix(\'Q\');');
+seqer.set_prefix('Q');
+BaseModule.Printer.printLine('Set object seq: seqer.set_seq(1000);');
+seqer.set_seq(1000);
+BaseModule.Printer.printLine('First generated serial number, seqer.gensym(): ' + seqer.gensym());
+BaseModule.Printer.printLine('Second generated serial number, seqer.gensym(): ' + seqer.gensym());
+BaseModule.Printer.printLine('Third generated serial number, seqer.gensym(): ' + seqer.gensym());
+BaseModule.Printer.sectionSeparator();
+
+// -------------------------------------------------------------------------------------------------------------------//
+// Cascade Sample
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Cascade Sample', fileAndLineIdentifier);
+
+BaseModule.Printer.sectionSeparator();
+
+// -------------------------------------------------------------------------------------------------------------------//
+// Curry Sample
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Curry Sample', fileAndLineIdentifier);
+BaseModule.Printer.printLine('Augment Function.prototype with curry function');
+Function.method('curry', function () {
+  var slice = Array.prototype.slice,
+      args = slice.apply(arguments),
+      that = this;
+  return function () {
+    return that.apply(null, args.concat(slice.apply(arguments)));
+  };
+});
+
+BaseModule.Printer.printLine(
+  'Create "add1" method by adding one argument to "add" function: var add1 = add.curry(1);'
+);
+var add1 = add.curry(1);
+BaseModule.Printer.printLine('Calling "add1" method: add1(6) = ' + add1(6));
+BaseModule.Printer.sectionSeparator();
+
+// -------------------------------------------------------------------------------------------------------------------//
+// Memoization Sample
+var fileAndLineIdentifier = new Error();
+BaseModule.Printer.printSectionTitle('Memoization Sample', fileAndLineIdentifier);
+var fibonacci = function () {
+  var memo = [0, 1];
+  var fib = function (n) {
+    var result = memo[n];
+    if (typeof result !== 'number') {
+      result = fib(n - 1) + fib(n - 2);
+      memo[n] = result;
+    }
+    return result;
+  };
+  return fib;
+}();
+
+var fibonacciResult = [];
+for (var i = 0; i <= 10; i++) {
+  fibonacciResult.push(fibonacci(i));
+}
+BaseModule.Printer.printLine('Fibonacci result: ' + fibonacciResult.join(', '));
+
+BaseModule.Printer.printLine('Create "memoizer" function to create new memoized functions');
+var memoizer = function (memo, fundamental) {
+  var shell = function (n) {
+    var result = memo[n];
+    if (typeof result !== 'number') {
+      result = fundamental(shell, n);
+      memo[n] = result;
+    }
+    return result;
+  };
+  return shell;
+};
+
+BaseModule.Printer.printLine('Create "fibonacci" from "memoizer" method');
+var fibonacciMemoized = memoizer(
+  [0, 1],
+  function (shell, n) {
+    return shell(n - 1) + shell(n - 2);
+  }
+);
+var fibonacciMemoizedResult = [];
+for (var i = 0; i <= 10; i++) {
+  fibonacciMemoizedResult.push(fibonacciMemoized(i));
+}
+BaseModule.Printer.printLine('Fibonacci Memoized result: ' + fibonacciMemoizedResult.join(', '));
+
+BaseModule.Printer.printLine('Create "factorial" from "memoizer" method');
+var factorialMemoized = memoizer(
+  [1, 1],
+  function (shell, n) {
+    return  n * shell(n - 1);
+  }
+);
+BaseModule.Printer.printLine('Factorial Memoized result: ' + factorialMemoized(4));
 BaseModule.Printer.sectionSeparator();
 
