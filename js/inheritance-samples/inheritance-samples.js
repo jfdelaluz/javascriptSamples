@@ -5,6 +5,7 @@ var InheritanceSamples = (function() {
     augmentFunctionMethodNew();
     augmentFunctionMethodInherits();
     InheritanceSamples.Pseudoclassical.init();
+    InheritanceSamples.Prototypal.init();
   };
   
   function augmentFunctionMethodNew() {
