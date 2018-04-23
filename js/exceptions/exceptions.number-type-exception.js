@@ -10,4 +10,3 @@ Exceptions.NumberTypeException = (function() {
   
   return self;
 })();
-

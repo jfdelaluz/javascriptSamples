@@ -43,4 +43,3 @@ var InheritanceSamples = (function() {
   
   return self;
 })();
-

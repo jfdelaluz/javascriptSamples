@@ -99,4 +99,3 @@ var Flights = (function() {
   
   return self;
 })();
-

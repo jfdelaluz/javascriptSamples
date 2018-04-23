@@ -481,4 +481,3 @@ var FunctionSamples = (function () {
   
   return self;
 })();
-
