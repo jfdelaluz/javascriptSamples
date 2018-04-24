@@ -51,6 +51,9 @@ BaseModule.Printer = (function () {
     return element;
   }
   
+  /**
+   * @param {object}
+   */
   function addFilenameReport(fileAndLineIdentifier) {
     var filenameReport = document.createElement('h5');
     var content = document.createTextNode(
@@ -60,6 +63,10 @@ BaseModule.Printer = (function () {
     containerDiv.appendChild(filenameReport);
   }
   
+  /**
+   * @param  {object}
+   * @return {number}
+   */
   function getFunctionLine(fileAndLineIdentifier) {
     // fileAndLineIdentifier should be created in the first line after the function starts
     return fileAndLineIdentifier.lineNumber -1;
