@@ -6,6 +6,7 @@ var ArraySamples = (function () {
     ArraySamples.Length.init();
     ArraySamples.Delete.init();
     ArraySamples.Methods.init();
+    ArraySamples.Dimensions.init();
   };
 
   return self;
