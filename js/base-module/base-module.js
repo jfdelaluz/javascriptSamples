@@ -8,4 +8,3 @@ var BaseModule = (function () {
   
   return self;
 })();
-

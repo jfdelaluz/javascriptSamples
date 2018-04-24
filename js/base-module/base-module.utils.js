@@ -26,4 +26,3 @@ BaseModule.Utils = (function() {
   
   return self;
 })();
-

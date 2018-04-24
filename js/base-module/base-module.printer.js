@@ -41,6 +41,11 @@ BaseModule.Printer = (function () {
     containerDiv.appendChild(separator);
   };
   
+  /**
+   * @param  {object} element
+   * @param  {object} attributes
+   * @return {object}
+   */
   function setAttributesToElement(element, attributes) {
     if (typeof attributes === 'object') {
       for (attribute in attributes) {
@@ -52,7 +57,7 @@ BaseModule.Printer = (function () {
   }
   
   /**
-   * @param {object}
+   * @param {object} fileAndLineIdentifier
    */
   function addFilenameReport(fileAndLineIdentifier) {
     var filenameReport = document.createElement('h5');
@@ -64,7 +69,7 @@ BaseModule.Printer = (function () {
   }
   
   /**
-   * @param  {object}
+   * @param  {object} fileAndLineIdentifier
    * @return {number}
    */
   function getFunctionLine(fileAndLineIdentifier) {
@@ -74,4 +79,3 @@ BaseModule.Printer = (function () {
   
   return self;
 })();
-
