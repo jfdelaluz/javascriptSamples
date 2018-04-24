@@ -144,4 +144,3 @@ var Stooges = (function() {
   
   return self;
 })();
-

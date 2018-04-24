@@ -30,4 +30,3 @@ var ReferenceSample = (function() {
   
   return self;
 })();
-
