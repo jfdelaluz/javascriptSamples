@@ -4,6 +4,7 @@ var ArraySamples = (function () {
   self.init = function() {
     ArraySamples.ArrayLiterals.init();
     ArraySamples.Length.init();
+    ArraySamples.Delete.init();
   };
 
   return self;
